@@ -1,22 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import * as serviceWorker from "./serviceWorker";
 
-import axios from 'axios';
+import axios from "axios";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
 
-axios.get(`http://localhost:${process.env.REACT_APP_SERVER_PORT}/test`, {
-  params: {
-    table: 'sample',
-  },
-}).then((response) => {
-  console.log(response.data);
-});
+// axios.get(`http://localhost:${process.env.REACT_APP_SERVER_PORT}/test`, {
+//   params: {
+//     table: 'sample',
+//   },
+// }).then((response) => {
+//   console.log(response.data);
+// });
