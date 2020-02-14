@@ -11,15 +11,39 @@
   },
   "plugins": ["@typescript-eslint"],
   "rules": {
+    "no-alert": "warn",
+    "no-console": "warn",
+    "no-else-return": [
+      "error",
+      {
+        "allowElseIf": false
+      }
+    ],
+    "no-undefined": "error",
     "quotes": ["error", "single"],
     "semi": ["error", "never"],
-
-    "overrides": {
-      "interface": {
+    "@typescript-eslint/no-extra-parens": ["error"],
+    "@typescript-eslint/semi": ["error", "never"],
+    "@typescript-eslint/member-delimiter-style": [
+      "error",
+      {
         "multiline": {
           "delimiter": "none"
         }
       }
-    }
+    ],
+    "@typescript-eslint/quotes": [
+      "error",
+      "single",
+      {
+        "avoidEscape": true
+      }
+    ],
+    "@typescript-eslint/explicit-function-return-type": [
+      "error",
+      {
+        "allowExpressions": true
+      }
+    ]
   }
 }
