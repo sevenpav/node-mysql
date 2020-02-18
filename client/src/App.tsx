@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.scss';
+import React, { useState } from 'react'
+import 'materialize-css/sass/materialize.scss'
 
-const App = () => {
+import { TodoForm } from './components/TodoForm/TodoForm'
+import { TodoList } from './components/TodoList/TodoList'
+import { TodoInterface } from './interfaces'
+
+const App: React.FC = () => {
+  const [todos, setTodos] = useState<TodoInterface[]>([])
+
+  const addHandler = (title: string) => {
+    const newTodo: TodoInterface = {
+      title,
+      completed: false,
+      id: Date.now()
+    }
+
+    setTodos(prev => [newTodo, ...prev])
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App container">
+      <TodoForm addTodo={addHandler} />
+      <TodoList todos={todos} />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
