@@ -1,21 +1,21 @@
 import React from 'react'
 import './Header.scss'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 export const Header: React.FC = () => {
   return (
     <header className="header">
       <nav>
         <div className="nav-wrapper light-blue accent-3">
-          <Link to="/" className="brand-logo right">
+          <NavLink to="/" className="brand-logo right">
             ToDo App
-          </Link>
+          </NavLink>
           <ul id="nav-mobile" className="left hide-on-med-and-down">
             <li>
-              <Link to="/">Добавить задачу</Link>
+              <NavLink to="/">Список задач</NavLink>
             </li>
             <li>
-              <Link to="/about">О приложении</Link>
+              <NavLink to="/about">Информация</NavLink>
             </li>
           </ul>
         </div>
