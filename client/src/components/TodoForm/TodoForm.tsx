@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 type TodoFormProps = {
-  addTodo(title: string): void
+  addTodo: (title: string) => void
 }
 
 export const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
@@ -20,15 +20,17 @@ export const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
   }
 
   return (
-    <div className="input-field col s12">
+    <div className="input-field">
       <input
         value={value}
-        id="task"
         type="text"
-        className="validate"
+        id="title"
+        placeholder="Название задачи"
         onChange={changeHandler}
         onKeyPress={onSubmit}></input>
-      <label htmlFor="task">New task</label>
+      <label htmlFor="title" className="active">
+        Новая задача
+      </label>
     </div>
   )
 }

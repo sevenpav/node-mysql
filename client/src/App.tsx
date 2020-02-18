@@ -1,27 +1,21 @@
-import React, { useState } from 'react'
-import 'materialize-css/sass/materialize.scss'
+import React from 'react'
+import 'materialize-css/dist/css/materialize.min.css'
 
-import { TodoForm } from './components/TodoForm/TodoForm'
-import { TodoList } from './components/TodoList/TodoList'
-import { TodoInterface } from './interfaces'
+import { Header } from './components/Header/Header'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { Home } from './pages/Home/Home'
+import { About } from './pages/About/About'
 
 const App: React.FC = () => {
-  const [todos, setTodos] = useState<TodoInterface[]>([])
-
-  const addHandler = (title: string) => {
-    const newTodo: TodoInterface = {
-      title,
-      completed: false,
-      id: Date.now()
-    }
-
-    setTodos(prev => [newTodo, ...prev])
-  }
-
   return (
-    <div className="App container">
-      <TodoForm addTodo={addHandler} />
-      <TodoList todos={todos} />
+    <div className="App container-fluid">
+      <Router>
+        <Header />
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/about" component={About} />
+        </Switch>
+      </Router>
     </div>
   )
 }
