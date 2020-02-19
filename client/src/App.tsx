@@ -5,18 +5,21 @@ import { Header } from './components/Header/Header'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { Home } from './pages/Home/Home'
 import { About } from './pages/About/About'
+import TodosState from './context/todos/TodosStore'
 
 const App: React.FC = () => {
   return (
-    <div className="App container-fluid">
-      <Router>
-        <Header />
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/about" component={About} />
-        </Switch>
-      </Router>
-    </div>
+    <TodosState>
+      <div className="App container-fluid">
+        <Router>
+          <Header />
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/about" component={About} />
+          </Switch>
+        </Router>
+      </div>
+    </TodosState>
   )
 }
 
