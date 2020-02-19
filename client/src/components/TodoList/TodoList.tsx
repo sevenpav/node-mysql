@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './TodoList.scss'
-import { TodoInterface } from '../../interfaces'
+import { TodoInterface, TodosInterface } from '../../interfaces'
+import TodosContext from '../../context/Todos/TodosContext'
 
 type TodoListProps = {
   todos: TodoInterface[]
@@ -9,10 +10,12 @@ type TodoListProps = {
 }
 
 export const TodoList: React.FC<TodoListProps> = ({
-  todos,
+  // todos,
   onToggle,
   onRemove
 }) => {
+  const { todos }: TodosInterface = useContext(TodosContext)
+
   if (todos.length === 0) {
     return <p className="center flow-text">Задач нет</p>
   }

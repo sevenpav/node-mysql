@@ -3,3 +3,7 @@ export interface TodoInterface {
   completed: boolean
   id: number
 }
+
+export interface TodosInterface {
+  todos: TodoInterface[]
+}
