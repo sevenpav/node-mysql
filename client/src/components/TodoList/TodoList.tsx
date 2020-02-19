@@ -20,7 +20,7 @@ export const TodoList: React.FC = () => {
               <input
                 type="checkbox"
                 checked={completed}
-                onClick={() => toggleTodo(id)}
+                onChange={() => toggleTodo(id)}
               />
               <span>{title}</span>
               <i

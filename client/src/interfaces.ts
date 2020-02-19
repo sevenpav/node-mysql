@@ -4,6 +4,6 @@ export interface TodoInterface {
   id: number
 }
 
-export interface TodosInterface {
+export interface TodosStateInterface {
   todos: TodoInterface[]
 }

@@ -3,11 +3,11 @@ import React, { useReducer } from 'react'
 import TodosContext from './TodosContext'
 import todosReducer from './todosReducer'
 
-import { TodosInterface, TodoInterface } from '../../interfaces'
+import { TodoInterface, TodosStateInterface } from '../../interfaces'
 import { ADD_TODO, REMOVE_TODO, TOGGLE_TODO, INIT_TODOS } from '../types'
 
 const TodosState: React.FC = ({ children }) => {
-  const initialState: TodosInterface = {
+  const initialState: TodosStateInterface = {
     todos: []
   }
 
