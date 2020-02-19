@@ -1,11 +1,7 @@
 import React, { useState, useContext } from 'react'
 import TodosContext from '../../context/Todos/TodosContext'
 
-type TodoFormProps = {
-  addTodo: (title: string) => void
-}
-
-export const TodoForm: React.FC<TodoFormProps> = () => {
+export const TodoForm: React.FC = () => {
   const [value, setValue] = useState('')
 
   const { addTodo } = useContext(TodosContext)
@@ -16,8 +12,6 @@ export const TodoForm: React.FC<TodoFormProps> = () => {
 
   const onSubmit = (e: React.KeyboardEvent<HTMLInputElement>): void => {
     if (e.key !== 'Enter') return
-
-    // addTodo(value)
 
     addTodo({
       title: value,
