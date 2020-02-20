@@ -14,9 +14,7 @@ export const TodoForm: React.FC = () => {
     if (e.key !== 'Enter') return
 
     addTodo({
-      title: value,
-      completed: false,
-      id: Date.now()
+      title: value
     })
 
     setValue('')

@@ -1,30 +1,62 @@
-import React, { useReducer } from 'react'
+import React, { useReducer, useEffect } from 'react'
 
 import TodosContext from './TodosContext'
 import todosReducer from './todosReducer'
 
-import { TodoInterface, TodosStateInterface } from '../../interfaces'
-import { ADD_TODO, REMOVE_TODO, TOGGLE_TODO, INIT_TODOS } from '../types'
+import { TodoType, TodosStateType } from '../../types'
+import { ADD_TODO, REMOVE_TODO, TOGGLE_TODO, INIT_TODOS } from '../actions'
 
 const TodosState: React.FC = ({ children }) => {
-  const initialState: TodosStateInterface = {
+  const initialState: TodosStateType = {
     todos: []
   }
 
   const [state, dispatch] = useReducer(todosReducer, initialState)
 
-  const initTodos = (todos: TodoInterface[]): void => {
+  const initTodos = (todos: TodoType[]): void => {
     dispatch({
       type: INIT_TODOS,
       payload: todos
     })
   }
 
-  const addTodo = (todo: TodoInterface): void => {
-    dispatch({
-      type: ADD_TODO,
-      payload: todo
-    })
+  const getTodos = async (): Promise<TodoType[]> => {
+    try {
+      const res = await fetch(
+        `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/todos`
+      )
+
+      const todos = await res.json()
+
+      return todos
+    } catch (e) {
+      throw new Error(e)
+    }
+  }
+
+  useEffect(() => {
+    getTodos().then(todos => initTodos(todos))
+  }, [])
+
+  const addTodo = async <T extends { title: string }>(
+    todo: T
+  ): Promise<void> => {
+    try {
+      const res = await fetch(
+        `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/todo`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(todo)
+        }
+      )
+
+      dispatch({ type: ADD_TODO, payload: await res.json() })
+    } catch (e) {
+      throw new Error(e)
+    }
   }
 
   const removeTodo = (id: number): void => {
@@ -54,8 +86,7 @@ const TodosState: React.FC = ({ children }) => {
   const { todos } = state
 
   return (
-    <TodosContext.Provider
-      value={{ todos, initTodos, addTodo, removeTodo, toggleTodo }}>
+    <TodosContext.Provider value={{ todos, addTodo, removeTodo, toggleTodo }}>
       {children}
     </TodosContext.Provider>
   )

@@ -1,16 +1,16 @@
-import { TodosStateInterface } from '../../interfaces'
+import { TodosStateType, TodoType } from '../../types'
 
-import { INIT_TODOS, ADD_TODO, REMOVE_TODO, TOGGLE_TODO } from '../types'
+import { INIT_TODOS, ADD_TODO, REMOVE_TODO, TOGGLE_TODO } from '../actions'
 
-interface ActionInterface {
+type ActionType = {
   type: string
-  payload: any
+  payload: TodoType[]
 }
 
 type TodosReducerType = (
-  state: TodosStateInterface,
-  payload: ActionInterface
-) => TodosStateInterface
+  state: TodosStateType,
+  payload: ActionType
+) => TodosStateType
 
 const todosReducer: TodosReducerType = (state, { type, payload }) => {
   switch (type) {
@@ -22,7 +22,7 @@ const todosReducer: TodosReducerType = (state, { type, payload }) => {
     case ADD_TODO:
       return {
         ...state,
-        todos: [...state.todos, payload]
+        todos: [...state.todos, ...payload]
       }
     case REMOVE_TODO:
       return {
