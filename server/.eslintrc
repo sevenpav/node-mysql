@@ -12,7 +12,6 @@
   "plugins": ["@typescript-eslint"],
   "rules": {
     "no-alert": "warn",
-    "no-console": "warn",
     "no-else-return": [
       "error",
       {

@@ -1,8 +1,9 @@
 export type TodoType = {
   title: string
-  completed: boolean
+  done: boolean
   id: number
-  created: string
+  createdAt: string
+  updatedAt: string
 }
 
 export type TodosStateType = {

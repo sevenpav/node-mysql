@@ -11,16 +11,16 @@ export const TodoList: React.FC = () => {
 
   return (
     <ul className="todo-list">
-      {todos.map(({ id, completed, title }) => {
-        const completedClass = completed ? 'completed' : ''
+      {todos.map(({ id, done, title }) => {
+        const completedClass = done ? 'completed' : ''
 
         return (
           <li className={`todo grey lighten-3 ${completedClass}`} key={id}>
             <label>
               <input
                 type="checkbox"
-                checked={completed}
-                onChange={() => toggleTodo(id)}
+                checked={done}
+                onChange={() => toggleTodo(id, !done)}
               />
               <span>{title}</span>
               <i

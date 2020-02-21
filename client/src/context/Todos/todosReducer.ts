@@ -22,7 +22,7 @@ const todosReducer: TodosReducerType = (state, { type, payload }) => {
     case ADD_TODO:
       return {
         ...state,
-        todos: [...state.todos, ...payload]
+        todos: [...payload, ...state.todos]
       }
     case REMOVE_TODO:
       return {
