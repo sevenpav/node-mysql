@@ -6,10 +6,14 @@ import todosReducer from './todosReducer'
 import { TodoType, TodosStateType } from '../../types'
 import { ADD_TODO, REMOVE_TODO, TOGGLE_TODO, INIT_TODOS } from '../actions'
 
+import TodoService from '../../services/todo-service'
+
 const TodosState: React.FC = ({ children }) => {
   const initialState: TodosStateType = {
     todos: []
   }
+
+  const todoService = new TodoService()
 
   const [state, dispatch] = useReducer(todosReducer, initialState)
 
@@ -20,85 +24,28 @@ const TodosState: React.FC = ({ children }) => {
     })
   }
 
-  const getTodos = async (): Promise<TodoType[]> => {
-    try {
-      const res = await fetch(
-        `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/todo`
-      )
-
-      const todos = await res.json()
-
-      return todos
-    } catch (e) {
-      console.log(e)
-
-      return []
-    }
-  }
-
   useEffect(() => {
-    getTodos().then(todos => initTodos(todos))
+    todoService.getTodos().then(todos => initTodos(todos))
   }, [])
 
-  const addTodo = async <T extends { title: string }>(
-    todo: T
-  ): Promise<void> => {
-    try {
-      const res = await fetch(
-        `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/todo`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(todo)
-        }
-      )
-
-      dispatch({ type: ADD_TODO, payload: await res.json() })
-    } catch (e) {
-      throw new Error(e)
-    }
+  const addTodo = (todo: { title: string }): void => {
+    todoService
+      .addTodo(todo)
+      .then(todos => dispatch({ type: ADD_TODO, payload: todos }))
   }
 
-  const removeTodo = async (id: number): Promise<void> => {
-    try {
-      await fetch(
-        `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/todo/${id}`,
-        {
-          method: 'DELETE'
-        }
-      )
+  const removeTodo = (id: number): void => {
+    todoService.removeTodo(id).then(() => {
       const newTodos = state.todos.filter(todo => id !== todo.id)
-
       dispatch({
         type: REMOVE_TODO,
         payload: newTodos
       })
-    } catch (e) {
-      throw new Error(e)
-    }
-    const newTodos = state.todos.filter(todo => id !== todo.id)
-
-    dispatch({
-      type: REMOVE_TODO,
-      payload: newTodos
     })
   }
 
-  const toggleTodo = async (id: number, done: boolean): Promise<void> => {
-    try {
-      await fetch(
-        `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/todo/${id}`,
-        {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ done })
-        }
-      )
-
+  const toggleTodo = (id: number, done: boolean): void => {
+    todoService.toggleTodo(id, done).then(() => {
       const newTodos = state.todos.map(todo => {
         if (todo.id === id) {
           todo.done = done
@@ -111,9 +58,7 @@ const TodosState: React.FC = ({ children }) => {
         type: TOGGLE_TODO,
         payload: newTodos
       })
-    } catch (e) {
-      throw new Error(e)
-    }
+    })
   }
 
   const { todos } = state

@@ -63,7 +63,7 @@ router.delete('/:id', async (req, res) => {
     if (todo) {
       await todo.destroy()
 
-      res.status(200).end()
+      res.status(204).end()
     }
   } catch (e) {
     console.log(e)
