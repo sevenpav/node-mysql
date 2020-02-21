@@ -3,7 +3,7 @@ import { TodoType } from '../types'
 class TodoService {
   private _apiBase = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/todo`
 
-  async getTodos(): Promise<TodoType[]> {
+  async fetchGetTodos(): Promise<TodoType[]> {
     const res = await fetch(this._apiBase)
 
     if (res.ok) {
@@ -17,7 +17,7 @@ class TodoService {
     throw new Error(message)
   }
 
-  async addTodo(todo: { title: string }): Promise<TodoType[]> {
+  async fetchAddTodo(todo: { title: string }): Promise<TodoType[]> {
     const res = await fetch(this._apiBase, {
       method: 'POST',
       headers: {
@@ -36,7 +36,7 @@ class TodoService {
     throw new Error(message)
   }
 
-  async removeTodo(id: number): Promise<void> {
+  async fetchRemoveTodo(id: number): Promise<void> {
     const res = await fetch(`${this._apiBase}/${id}`, {
       method: 'DELETE'
     })
@@ -50,7 +50,7 @@ class TodoService {
     throw new Error(message)
   }
 
-  async toggleTodo(id: number, done: boolean): Promise<void> {
+  async fetchToggleTodo(id: number, done: boolean): Promise<void> {
     const res = await fetch(`${this._apiBase}/${id}`, {
       method: 'PUT',
       headers: {

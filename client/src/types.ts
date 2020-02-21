@@ -8,4 +8,6 @@ export type TodoType = {
 
 export type TodosStateType = {
   todos: TodoType[]
+  loading: boolean
+  error: string | null
 }
