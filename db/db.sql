@@ -6,13 +6,14 @@ SET time_zone = "+00:00";
 CREATE TABLE `todos` (
   `id` int(255) NOT NULL,
   `title` varchar(100) NOT NULL,
-  `completed` boolean NOT NULL,
-  `created` timestamp NOT NULL
+  `done` boolean NOT NULL,
+  `createdAt` TIMESTAMP NOT NULL,
+  `updatedAt` TIMESTAMP NOT NULL DEFAULT NOW() ON UPDATE NOW()
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
-INSERT INTO `todos` (`id`, `title`, `completed`, `created`) VALUES
-(1, 'Выпить кофе', TRUE, '2019-01-22 19:20:02'),
-(2, 'Пописять в штанишки', FALSE, '2018-01-22 20:20:02');
+INSERT INTO `todos` (`id`, `title`, `done`) VALUES
+(1, 'Выпить кофе', TRUE),
+(2, 'Пописять в штанишки', FALSE);
 
 ALTER TABLE `todos`
   ADD PRIMARY KEY (`id`);
