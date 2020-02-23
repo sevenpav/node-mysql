@@ -35,7 +35,6 @@ const TodosState: React.FC = ({ children }) => {
           type: INIT_TODOS,
           payload: todos
         })
-
         dispatch({
           type: FETCH_SUCCESS
         })
@@ -124,11 +123,11 @@ const TodosState: React.FC = ({ children }) => {
       })
   }
 
-  const { todos, loading } = state
+  const { todos, loading, error } = state
 
   return (
     <TodosContext.Provider
-      value={{ todos, loading, addTodo, removeTodo, toggleTodo }}>
+      value={{ todos, loading, error, addTodo, removeTodo, toggleTodo }}>
       {children}
     </TodosContext.Provider>
   )

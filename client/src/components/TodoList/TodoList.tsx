@@ -1,9 +1,14 @@
 import React, { useContext } from 'react'
 import './TodoList.scss'
 import TodosContext from '../../context/Todos/TodosContext'
+import ErrorAlert from '../ErrorAlert/ErrorAlert'
 
-export const TodoList: React.FC = () => {
-  const { todos, removeTodo, toggleTodo } = useContext(TodosContext)
+const TodoList: React.FC = () => {
+  const { todos, error, removeTodo, toggleTodo } = useContext(TodosContext)
+
+  if (error) {
+    return <ErrorAlert msg={error} />
+  }
 
   if (todos.length === 0) {
     return <p className="center flow-text">Задач нет</p>
@@ -23,15 +28,17 @@ export const TodoList: React.FC = () => {
                 onChange={() => toggleTodo(id, !done)}
               />
               <span>{title}</span>
-              <i
-                className="material-icons red-text"
-                onClick={() => removeTodo(id)}>
-                delete
-              </i>
             </label>
+            <i
+              className="material-icons red-text"
+              onClick={() => removeTodo(id)}>
+              delete
+            </i>
           </li>
         )
       })}
     </ul>
   )
 }
+
+export default TodoList

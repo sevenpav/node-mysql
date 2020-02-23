@@ -1,4 +1,4 @@
-import { TodosStateType, TodoType } from '../../types'
+import { TodosStateType } from '../../types'
 
 import {
   INIT_TODOS,
@@ -25,7 +25,8 @@ const todosReducer: TodosReducerType = (state, { type, payload }) => {
     case FETCH_REQUEST:
       return {
         ...state,
-        loading: true
+        loading: true,
+        error: null
       }
     case FETCH_SUCCESS:
       return {
